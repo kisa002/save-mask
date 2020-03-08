@@ -3,6 +3,7 @@ package com.haeyum.savemask;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.haeyum.savemask.APIs.Models.MaskInfo.MaskStore;
@@ -29,26 +31,31 @@ import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
+import com.naver.maps.map.util.MarkerIcons;
 
 import java.util.ArrayList;
 
 import static com.haeyum.savemask.APIs.NetClient.MASK_BASE_URL;
 import static com.haeyum.savemask.NoticeManager.createNotice;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnLocationChangeListener, NaverMap.OnCameraIdleListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnLocationChangeListener, NaverMap.OnCameraChangeListener, NaverMap.OnCameraIdleListener {
     private final String TAG = "MainActivity";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
 
     // UI
     private ConstraintLayout clStore;
 
+    private TextView tvStoreName, tvStoreAddr;
+    private TextView tvStoreStock, tvStoreSale, tvStoreTime;
+
     // MAP
     private NaverMap naverMap;
     private FusedLocationSource locationSource;
 
     // Marker
+    private Marker currentMarker;
     private ArrayList<InfoWindow> infoWindows = new ArrayList<>();
-    private ArrayList<Marker> markers = new ArrayList<>();
+//    private ArrayList<Marker> markers = new ArrayList<>();
 
     private boolean isLoadedMap;
 
@@ -65,6 +72,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         clStore = findViewById(R.id.cl_main_store);
         clStore.setAlpha(0);
 
+        tvStoreName = findViewById(R.id.tv_main_storeName);
+        tvStoreAddr = findViewById(R.id.tv_main_storeAddr);
+
+        tvStoreStock = findViewById(R.id.tv_main_storeStock);
+        tvStoreSale = findViewById(R.id.tv_main_storeSale);
+        tvStoreTime = findViewById(R.id.tv_main_storeTime);
+
         new Handler().postDelayed(() -> {
             clStore.setAlpha(1);
             clStore.animate().translationYBy(clStore.getHeight()).start();
@@ -76,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            return;
 //        }
 
-        String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=1000";
+        String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=5000";
         Call<MaskStores> res = NetClient.NetClientNaver().getMaskStores(query);
 
         res.enqueue(new Callback<MaskStores>() {
@@ -85,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.makeText(MainActivity.this, "getMaskStores", Toast.LENGTH_SHORT).show();
 
                 if(response.body() == null) {
-                    Toast.makeText(getApplicationContext(), "서버 연결에 실패하였습니다...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "서버 연결에 실패하였습니다... 관리자에게 문의바랍니다", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -93,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     iw.close();
                 }
 
-                markers.clear();
+//                markers.clear();
                 infoWindows.clear();
 
                 int cnt = 1;
@@ -105,8 +119,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                    marker.setPosition(pos);
 //                    marker.setMap(naverMap);
 
-                    cnt++;
+//                    cnt++;
+//                    String count = cnt < 10 ? "00" + cnt : (cnt < 100) ? "0" + cnt : cnt + "";
+                    cnt = maskStore.getRemain_cnt();
                     String count = cnt < 10 ? "00" + cnt : (cnt < 100) ? "0" + cnt : cnt + "";
+
+                    tvStoreName.setText(maskStore.getName());
+                    tvStoreAddr.setText(maskStore.getAddr());
+
+                    tvStoreStock.setText(maskStore.getStock_cnt());
+                    tvStoreSale.setText(maskStore.getSold_cnt());
+                    tvStoreTime.setText(maskStore.getStock_t());
 
                     InfoWindow.Adapter adapter;
                     adapter = new InfoWindow.Adapter() {
@@ -161,7 +184,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         naverMap.setLocationSource(locationSource);
         naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
 
+        currentMarker = new Marker();
+        currentMarker.setIcon(MarkerIcons.BLACK);
+        currentMarker.setIconTintColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        currentMarker.setPosition(naverMap.getCameraPosition().target);
+        currentMarker.setWidth(70);
+        currentMarker.setHeight(90);
+        currentMarker.setMap(naverMap);
+
         naverMap.addOnLocationChangeListener(this);
+        naverMap.addOnCameraChangeListener(this);
         naverMap.addOnCameraIdleListener(this);
     }
 
@@ -174,6 +206,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
+    public void onCameraChange(int i, boolean b) {
+        currentMarker.setPosition(naverMap.getCameraPosition().target);
+    }
+
+    @Override
     public void onCameraIdle() {
 //        Toast.makeText(this, "onCameraIdle", Toast.LENGTH_SHORT).show();
 //        getMaskStores(naverMap.getCameraPosition().target);
@@ -182,7 +219,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_search:
-                createNotice(this, "알려드립니다", "안녕하세요.\n저는 덜렁덜렁 빛나는 유남이입니다.\n유남이 너무 멋있어 너무 상스러워\n내가 소유해도 될까..? \n그럼 왜 안되겠어");
+//                createNotice(this, "알려드립니다", "안녕하세요.\n저는 덜렁덜렁 빛나는 유남이입니다.\n유남이 너무 멋있어 너무 상스러워\n내가 소유해도 될까..? \n그럼 왜 안되겠어");
+                getMaskStores(currentMarker.getPosition());
                 break;
 
             case R.id.btn_main_currentLocation:
