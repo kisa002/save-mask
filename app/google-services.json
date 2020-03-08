@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "720966196677",
+    "firebase_url": "https://save-mask.firebaseio.com",
+    "project_id": "save-mask",
+    "storage_bucket": "save-mask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720966196677:android:88be97a35c88b8ad92ffac",
+        "android_client_info": {
+          "package_name": "com.haeyum.savemask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720966196677-46eqt4mh3cvd59rc1sbgeo1gelvkfrvk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcEXY5OCjWMhtNHszqm4xOR76TGY5wIvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720966196677-46eqt4mh3cvd59rc1sbgeo1gelvkfrvk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
