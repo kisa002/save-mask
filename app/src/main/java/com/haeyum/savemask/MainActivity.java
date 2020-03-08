@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         initUI();
         initMap();
+
+        createNotice(this, "알려드립니다", "마스크를 구매하러 가시기 전,\n신분증을 꼭 챙겨주세요!\n\n출생연도 끝자리에 따라 구매 가능한 요일이 다르며\n마스크는 1주일에 2장만 구매 가능합니다.");
     }
 
     private void initUI() {
@@ -149,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         tvStoreStock.setText(maskStore.getStock_cnt());
                         tvStoreSale.setText(maskStore.getSold_cnt());
                         tvStoreTime.setText(maskStore.getStock_t());
-                        
+
                         showStore();
                         return false;
                     });
@@ -228,8 +230,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_search:
-//                createNotice(this, "알려드립니다", "안녕하세요.\n저는 덜렁덜렁 빛나는 유남이입니다.\n유남이 너무 멋있어 너무 상스러워\n내가 소유해도 될까..? \n그럼 왜 안되겠어");
                 getMaskStores(currentMarker.getPosition());
+
+                findViewById(R.id.btn_main_search).setEnabled(false);
+
+                new Handler().postDelayed(() -> {
+                    findViewById(R.id.btn_main_search).setEnabled(true);
+                }, 1000);
                 break;
 
             case R.id.btn_main_currentLocation:
