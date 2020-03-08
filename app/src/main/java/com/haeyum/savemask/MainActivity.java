@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -23,12 +24,15 @@ import com.haeyum.savemask.APIs.Models.MaskInfo.MaskStore;
 import com.haeyum.savemask.APIs.Models.MaskInfo.MaskStores;
 import com.haeyum.savemask.APIs.NetClient;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraAnimation;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.util.MarkerIcons;
@@ -124,13 +128,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     cnt = maskStore.getRemain_cnt();
                     String count = cnt < 10 ? "00" + cnt : (cnt < 100) ? "0" + cnt : cnt + "";
 
-                    tvStoreName.setText(maskStore.getName());
-                    tvStoreAddr.setText(maskStore.getAddr());
-
-                    tvStoreStock.setText(maskStore.getStock_cnt());
-                    tvStoreSale.setText(maskStore.getSold_cnt());
-                    tvStoreTime.setText(maskStore.getStock_t());
-
                     InfoWindow.Adapter adapter;
                     adapter = new InfoWindow.Adapter() {
                         @NonNull
@@ -144,6 +141,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     infoWindow.setAdapter(adapter);
                     infoWindow.setPosition(pos);
                     infoWindow.setMap(naverMap);
+
+                    infoWindow.setOnClickListener(overlay -> {
+                        tvStoreName.setText(maskStore.getName());
+                        tvStoreAddr.setText(maskStore.getAddr());
+
+                        tvStoreStock.setText(maskStore.getStock_cnt());
+                        tvStoreSale.setText(maskStore.getSold_cnt());
+                        tvStoreTime.setText(maskStore.getStock_t());
+                        
+                        showStore();
+                        return false;
+                    });
 
 //                    markers.add(marker);
                     infoWindows.add(infoWindow);
@@ -224,6 +233,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
 
             case R.id.btn_main_currentLocation:
+                CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude())).animate(CameraAnimation.Linear); //new LatLng(37.5666102, 126.9783881)
+                naverMap.moveCamera(cameraUpdate);
+
                 showStore();
                 break;
 
@@ -231,6 +243,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 hideStore();
                 break;
         }
+    }
+
+    private long backTimer = SystemClock.uptimeMillis() - 2000;
+
+    @Override
+    public void onBackPressed() {
+        long result = SystemClock.uptimeMillis() - backTimer;
+
+        if(result > 2000)
+            Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
+        else {
+            finish();
+        }
+        backTimer = SystemClock.uptimeMillis();
     }
 
     private void trash() {
