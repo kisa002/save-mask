@@ -10,6 +10,188 @@
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.naver.maps.map.MapFragment" />
+        android:name="com.naver.maps.map.MapFragment"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_main_currentLocation"
+            android:onClick="onClick"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/back_icon_bg"
+            android:backgroundTint="#FFFF"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="108dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_main_search"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="onClick"
+            android:text="마스크 조회"
+            android:textSize="16sp"
+            android:textColor="#FFFF"
+            android:fontFamily="@font/kopubdotum_bold"
+            android:background="@drawable/rounded_button1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_main_store"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_main_storeClose"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/icon_back_new"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toTopOf="@id/cl_main_storeInfo"
+            app:layout_constraintEnd_toEndOf="parent">
+        </Button>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_main_storeInfo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:elevation="60dp"
+            android:background="#FFFF"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tv_main_storeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="약국 이름"
+                android:includeFontPadding="false"
+                android:textSize="20sp"
+                android:textColor="#2b3078"
+                android:fontFamily="@font/kopubdotum_bold"
+                android:layout_marginStart="39dp"
+                android:layout_marginTop="23dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_main_storeAddr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대한민국의 수도는 서울입니다."
+                android:includeFontPadding="false"
+                android:textSize="16sp"
+                android:textColor="#4e4e4e"
+                android:fontFamily="@font/kopubdotum_medium"
+                android:layout_marginTop="3dp"
+                app:layout_constraintStart_toStartOf="@id/tv_main_storeName"
+                app:layout_constraintTop_toBottomOf="@id/tv_main_storeName"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:src="@drawable/mask_icon"
+                android:layout_marginEnd="45dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_main_storeName"
+                app:layout_constraintBottom_toBottomOf="@id/tv_main_storeAddr"/>
+
+            <View
+                android:id="@+id/v_main_storeStroke"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/stroke"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="15.3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_main_storeAddr"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="25dp"
+                android:columnCount="2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/v_main_storeStroke">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="입고된 마스크 : "
+                    android:includeFontPadding="false"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/kopubdotum_bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="00개"
+                    android:includeFontPadding="false"
+                    android:textSize="15sp"
+                    android:textColor="#2b3078"
+                    android:fontFamily="@font/kopubdotum_bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="판매된 마스크 : "
+                    android:includeFontPadding="false"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="00개"
+                    android:includeFontPadding="false"
+                    android:textSize="15sp"
+                    android:textColor="#139113"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="입고 시간 : "
+                    android:includeFontPadding="false"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="00/00 00:00"
+                    android:includeFontPadding="false"
+                    android:textSize="15sp"
+                    android:textColor="#7d7d7d"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:layout_marginTop="10dp"/>
+            </GridLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
