@@ -21,20 +21,11 @@ public class MaskStore {
     @SerializedName("name")
     private String name;
 
-    @SerializedName("remain_cnt")
-    private int remain_cnt;
+    @SerializedName("remain_stat")
+    private String remain_stat;
 
-    @SerializedName("sold_cnt")
-    private String sold_cnt;
-
-    @SerializedName("sold_out")
-    private Boolean sold_out;
-
-    @SerializedName("stock_cnt")
-    private int stock_cnt;
-
-    @SerializedName("stock_t")
-    private String stock_t;
+    @SerializedName("stock_at")
+    private String stock_at;
 
     @SerializedName("type")
     private String type;
@@ -87,44 +78,20 @@ public class MaskStore {
         this.name = name;
     }
 
-    public int getRemain_cnt() {
-        return remain_cnt;
+    public String getRemain_stat() {
+        return remain_stat;
     }
 
-    public void setRemain_cnt(int remain_cnt) {
-        this.remain_cnt = remain_cnt;
+    public void setRemain_stat(String remain_stat) {
+        this.remain_stat = remain_stat;
     }
 
-    public String getSold_cnt() {
-        return sold_cnt;
+    public String getStock_at() {
+        return stock_at;
     }
 
-    public void setSold_cnt(String sold_cnt) {
-        this.sold_cnt = sold_cnt;
-    }
-
-    public Boolean getSold_out() {
-        return sold_out;
-    }
-
-    public void setSold_out(Boolean sold_out) {
-        this.sold_out = sold_out;
-    }
-
-    public int getStock_cnt() {
-        return stock_cnt;
-    }
-
-    public void setStock_cnt(int stock_cnt) {
-        this.stock_cnt = stock_cnt;
-    }
-
-    public String getStock_t() {
-        return stock_t;
-    }
-
-    public void setStock_t(String stock_t) {
-        this.stock_t = stock_t;
+    public void setStock_at(String stock_at) {
+        this.stock_at = stock_at;
     }
 
     public String getType() {

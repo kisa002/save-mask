@@ -32,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
                 ivTitle.animate().translationYBy(ivTitle.getHeight() * 1.5f).alpha(1).setDuration(600).setStartDelay(400);
                 ivLogo.animate().translationYBy(-ivLogo.getHeight()).alpha(1).setDuration(1000).withEndAction(() -> {
                    vFade.animate().alpha(0).setStartDelay(600).withEndAction(() -> {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), BirthActivity.class);
                         startActivity(intent);
 
                         finish();

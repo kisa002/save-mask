@@ -12,8 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NoticeActivity"
-            android:theme="@style/Transparent"/>
+        <activity android:name=".BirthActivity"></activity>
+        <activity
+            android:name=".TermsActivity"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name=".NoticeActivity"
+            android:theme="@style/Transparent" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

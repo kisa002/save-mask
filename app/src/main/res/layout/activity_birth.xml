@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BirthActivity">
+
+    <ImageView
+        android:id="@+id/iv_birth_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/text"
+        android:layout_marginLeft="56.3dp"
+        android:layout_marginRight="52dp"
+        android:layout_marginTop="94dp"
+        android:layout_marginBottom="207.3dp"/>
+
+    <ImageView
+        android:id="@+id/iv_birth_gif"
+        android:layout_width="230dp"
+        android:layout_height="290dp"
+        app:layout_constraintStart_toStartOf="@id/iv_birth_text"
+        app:layout_constraintEnd_toEndOf="@id/iv_birth_text"
+        app:layout_constraintTop_toTopOf="@id/iv_birth_text"
+        app:layout_constraintBottom_toBottomOf="@id/iv_birth_text"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_birth_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18.3dp"
+        android:layout_marginRight="18.3dp"
+        android:layout_marginBottom="29.7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_birth_skip">
+
+        <Button
+            android:id="@+id/btn_birth_next"
+            android:onClick="onClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="출생년도 끝자리 저장"
+            android:textSize="17sp"
+            android:textColor="#ffff"
+            android:fontFamily="@font/kopubdotum_bold"
+            android:background="@drawable/rounded_button1"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_birth_skip"
+        android:onClick="onClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="건너뛰기"
+        android:textColor="#a8a8a8"
+        android:textSize="13sp"
+        android:layout_marginBottom="33dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#a8a8a8"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@id/tv_birth_skip"
+        app:layout_constraintEnd_toEndOf="@id/tv_birth_skip"
+        app:layout_constraintTop_toBottomOf="@id/tv_birth_skip"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_birth_main"
+        android:visibility="visible"
+        android:background="#ffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_birth_main"
+            android:layout_width="178dp"
+            android:layout_height="79.7dp"
+            android:src="@drawable/main_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="100dp"/>
+
+        <ImageView
+            android:id="@+id/iv_birth_sub"
+            android:layout_width="173dp"
+            android:layout_height="35dp"
+            android:src="@drawable/sub_text"
+            app:layout_constraintTop_toBottomOf="@id/iv_birth_main"
+            app:layout_constraintBottom_toTopOf="@id/ll_birth_numbers"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/ll_birth_numbers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="35.7dp"
+            android:layout_marginRight="35.7dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_birth_sub"
+            app:layout_constraintBottom_toTopOf="@id/rl_birth_save">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+                <Button
+                    android:id="@+id/btn_birth_number1"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="1"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+
+                <Button
+                    android:id="@+id/btn_birth_number2"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="2"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+
+                <Button
+                    android:id="@+id/btn_birth_number3"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="3"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+
+                <Button
+                    android:id="@+id/btn_birth_number4"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="4"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+
+                <Button
+                    android:id="@+id/btn_birth_number5"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="5"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_birth_number6"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="6"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+
+                <Button
+                    android:id="@+id/btn_birth_number7"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="7"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+
+                <Button
+                    android:id="@+id/btn_birth_number8"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="8"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+
+                <Button
+                    android:id="@+id/btn_birth_number9"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="9"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+
+                <Button
+                    android:id="@+id/btn_birth_number0"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="52.7dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="0"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/kopubdotum_bold"
+                    android:textColor="#585858"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_birth_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18.3dp"
+            android:layout_marginRight="18.3dp"
+            android:layout_marginBottom="29.7dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_birth_back">
+
+            <Button
+                android:id="@+id/btn_birth_save"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="저장"
+                android:textSize="17sp"
+                android:textColor="#ffff"
+                android:fontFamily="@font/kopubdotum_bold"
+                android:background="@drawable/rounded_button1"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_birth_back"
+            android:onClick="onClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="뒤로가기"
+            android:textColor="#a8a8a8"
+            android:textSize="13sp"
+            android:layout_marginBottom="33dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#a8a8a8"
+            android:layout_marginTop="3dp"
+            app:layout_constraintStart_toStartOf="@id/tv_birth_back"
+            app:layout_constraintEnd_toEndOf="@id/tv_birth_back"
+            app:layout_constraintTop_toBottomOf="@id/tv_birth_back"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

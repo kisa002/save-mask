@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private boolean isLoadedMap;
 
+    private AppPref appPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +73,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         initUI();
         initMap();
 
-        createNotice(this, "알려드립니다", "마스크를 구매하러 가시기 전,\n신분증을 꼭 챙겨주세요!\n\n출생연도 끝자리에 따라 구매 가능한 요일이 다르며\n마스크는 1주일에 2장만 구매 가능합니다.");
+        appPref = new AppPref(this);
+
+        if(!appPref.getTermsAgree())
+            startActivity(new Intent(getApplicationContext(), TermsActivity.class));
+
+//        createNotice(this, "알려드립니다", "마스크를 구매하러 가시기 전,\n신분증을 꼭 챙겨주세요!\n\n출생연도 끝자리에 따라 구매 가능한 요일이 다르며\n마스크는 1주일에 2장만 구매 가능합니다.");
     }
 
     private void initUI() {
@@ -96,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            return;
 //        }
 
-        String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=5000";
+        String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=1000";
         Call<MaskStores> res = NetClient.NetClientNaver().getMaskStores(query);
 
         res.enqueue(new Callback<MaskStores>() {
@@ -116,26 +123,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                markers.clear();
                 infoWindows.clear();
 
-                int cnt = 1;
-
                 for(MaskStore maskStore : response.body().getStores()) {
                     LatLng pos = new LatLng(maskStore.getLat(), maskStore.getLng());
-
-//                    Marker marker = new Marker();
-//                    marker.setPosition(pos);
-//                    marker.setMap(naverMap);
-
-//                    cnt++;
-//                    String count = cnt < 10 ? "00" + cnt : (cnt < 100) ? "0" + cnt : cnt + "";
-                    cnt = maskStore.getRemain_cnt();
-                    String count = cnt < 10 ? "00" + cnt : (cnt < 100) ? "0" + cnt : cnt + "";
+                    Log.d("asd", "pos: " + pos);
 
                     InfoWindow.Adapter adapter;
                     adapter = new InfoWindow.Adapter() {
                         @NonNull
                         @Override
                         public OverlayImage getImage(@NonNull InfoWindow infoWindow) {
-                            return OverlayImage.fromAsset("00" + count + ".png");
+                            return OverlayImage.fromAsset(maskStore.getRemain_stat() + ".png");
                         }
                     };
 
@@ -147,10 +144,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     infoWindow.setOnClickListener(overlay -> {
                         tvStoreName.setText(maskStore.getName());
                         tvStoreAddr.setText(maskStore.getAddr());
-
-                        tvStoreStock.setText(maskStore.getStock_cnt());
-                        tvStoreSale.setText(maskStore.getSold_cnt());
-                        tvStoreTime.setText(maskStore.getStock_t());
 
                         showStore();
                         return false;
