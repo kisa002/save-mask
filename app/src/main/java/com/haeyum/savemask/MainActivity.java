@@ -15,6 +15,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean isShowStore;
 
     private AppPref appPref;
+
+    private MaskStore selectMaskStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             if(result) {
-                if(x == 1) {
+                if(x == -1) {
                     createNotice(this, "잠깐, 마스크를 사셨나요?", "주중에 마스크를 구매하신 못한 분들은 주말에 구매가 가능합니다!\n세이브 마스크를 이용하여 재고가 있는 판매처에 방문하여 마스크를 구해세요!\n\n마스크는 1주일에 2장만 구매 가능하며 신분증을 꼭 챙겨주세요!");
                 } else {
                     createNotice(this, "마스크 사셔야겠네요!", "오늘은 " + x + "년생과 " + y + "년 생이 사는 날 입니다.\n\n세이브 마스크를 이용하여 재고가 있는 판매처에 방문하여 마스크를 구해세요!\n\n마스크는 1주일에 2장만 구매 가능하며 신분증을 꼭 챙겨주세요!");
@@ -137,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 createNotice(this, "오늘은 패스...", "오늘은 " + x + "년생과 " + y + "년 생이 사는 날 입니다.\n아쉽게도 다음에 사셔야겠네요...\n\n세이브 마스크 기능은 자유롭게 이용하실 수 있습니다!");
             }
         }
-
     }
 
     private void initUI() {
@@ -156,6 +158,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, 100);
     }
 
+    private void connectServer() {
+        String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        FirebaseManager.getInstance().sign(androidId);
+    }
+
     private boolean getCheckBirth(int birth, int x, int y) {
         return birth == x || birth == y ? true : false;
     }
@@ -165,13 +172,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            return;
 //        }
 
-        String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=5000";
+        String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=3000";
         Call<MaskStores> res = NetClient.NetClientNaver().getMaskStores(query);
 
         res.enqueue(new Callback<MaskStores>() {
             @Override
             public void onResponse(Call<MaskStores> call, Response<MaskStores> response) {
-                Toast.makeText(MainActivity.this, "getMaskStores", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "getMaskStores", Toast.LENGTH_SHORT).show();
 
                 if(response.body() == null) {
                     Toast.makeText(getApplicationContext(), "서버 연결에 실패하였습니다... 관리자에게 문의바랍니다", Toast.LENGTH_SHORT).show();
@@ -232,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         else
                             remainId = R.drawable.empty;
 
+                        selectMaskStore = maskStore;
                         ivStoreStatus.setImageResource(remainId);
 
                         showStore();
@@ -301,6 +309,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         currentMarker.setWidth(70);
         currentMarker.setHeight(90);
         currentMarker.setMap(naverMap);
+        currentMarker.setGlobalZIndex(1);
+        currentMarker.setZIndex(100000);
 
         naverMap.addOnLocationChangeListener(this);
         naverMap.addOnCameraChangeListener(this);
@@ -323,19 +333,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onCameraIdle() {
 //        Toast.makeText(this, "onCameraIdle", Toast.LENGTH_SHORT).show();
-//        getMaskStores(naverMap.getCameraPosition().target);
+        getMaskStores(naverMap.getCameraPosition().target);
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_search:
-                getMaskStores(currentMarker.getPosition());
+//                Toast.makeText(this, "마스크 정보를 조회합니다!", Toast.LENGTH_SHORT).show();
+                createNotice(this, "뚝딱뚝딱 만들고 있어요!", "산업기능요원으로 근무하다보니 시간이 부족하여 완성되지 못했습니다ㅜㅜ\n\n퇴근 시간을 모아 조금씩 만들고 있으니 며칠내로 유용한 기능이 생길꺼에요!!\n\n개발 문의: vnycall74@naver.com");
 
-                findViewById(R.id.btn_main_search).setEnabled(false);
-
-                new Handler().postDelayed(() -> {
-                    findViewById(R.id.btn_main_search).setEnabled(true);
-                }, 1000);
+//                getMaskStores(currentMarker.getPosition());
+//                findViewById(R.id.btn_main_search).setEnabled(false);
+//
+//                new Handler().postDelayed(() -> {
+//                    findViewById(R.id.btn_main_search).setEnabled(true);
+//                }, 1000);
                 break;
 
             case R.id.btn_main_currentLocation:
@@ -346,6 +358,40 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
 
             case R.id.btn_main_share:
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+
+                intent.setType("text/plain");
+
+                String cnt = "";
+                switch (selectMaskStore.getRemain_stat()) {
+                    case "plenty":
+                        cnt = "100개 이상";
+                        break;
+
+                    case "some":
+                        cnt = "30개에서 100개 미만";
+                        break;
+
+                    case "few":
+                        cnt = "1개에서 30개 미만";
+                        break;
+
+                    default:
+                        cnt = "품절";
+                        break;
+                }
+
+                String text;
+                if(cnt.equals("품절")) {
+                    text = "세이브 마스크에서 안내드립니다\n\n현재 " + selectMaskStore.getName() + "에서 판매중인 마스크는 모두 판매되었습니다...\n세이브 마스크를 통해 다른 판매처를 찾아보세요..!\n\n[세이브 마스크 앱 설치]\nhttps://play.google.com/store/apps/details?id=com.haeyum.savemask";
+                } else {
+                    text = "세이브 마스크에서 안내드립니다!\n\n현재 " + selectMaskStore.getName() + "에서 판매중인 마스크의 재고 수가 " + cnt + " 입니다!\n늦기 전에 방문하여 마스크를 구매하세요!\n\n마스크 입고 시간: " + selectMaskStore.getStock_at() + "\n\n주소: " + selectMaskStore.getAddr() + "\n\n길찾기: https://map.kakao.com/?q=" + selectMaskStore.getAddr().replaceAll(" ", "+") + "\n\n[세이브 마스크 앱 설치]\nhttps://play.google.com/store/apps/details?id=com.haeyum.savemask";
+                }
+                intent.putExtra(Intent.EXTRA_TEXT, text);
+
+                // Title of intent
+                Intent chooser = Intent.createChooser(intent, "세이브 마스크 공유하기");
+                startActivity(chooser);
 
                 break;
 

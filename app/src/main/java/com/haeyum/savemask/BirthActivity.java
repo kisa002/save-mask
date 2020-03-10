@@ -128,4 +128,9 @@ public class BirthActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
