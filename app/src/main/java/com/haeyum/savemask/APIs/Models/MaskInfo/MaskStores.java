@@ -4,6 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author 유광무
+ * @email vnycall74@naver.com
+ * @git https://github.com/kisa002
+ *
+ * @version 1.0.0
+ **/
+
 public class MaskStores {
     @SerializedName("count")
     private int count;

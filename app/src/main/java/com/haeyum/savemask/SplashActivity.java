@@ -16,10 +16,14 @@ public class SplashActivity extends AppCompatActivity {
     private ImageView ivTitle, ivLogo;
     private View vFade;
 
+    private AppPref appPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        appPref = new AppPref(this);
 
         ivTitle = findViewById(R.id.iv_splash_title);
         ivLogo = findViewById(R.id.iv_splash_logo);
@@ -32,9 +36,14 @@ public class SplashActivity extends AppCompatActivity {
                 ivTitle.animate().translationYBy(ivTitle.getHeight() * 1.5f).alpha(1).setDuration(600).setStartDelay(400);
                 ivLogo.animate().translationYBy(-ivLogo.getHeight()).alpha(1).setDuration(1000).withEndAction(() -> {
                    vFade.animate().alpha(0).setStartDelay(600).withEndAction(() -> {
-                        Intent intent = new Intent(getApplicationContext(), BirthActivity.class);
-                        startActivity(intent);
+                        Intent intent;
 
+                        if(appPref.getBirth() == -1)
+                            intent = new Intent(getApplicationContext(), BirthActivity.class);
+                        else
+                            intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                        startActivity(intent);
                         finish();
                    });
                 });

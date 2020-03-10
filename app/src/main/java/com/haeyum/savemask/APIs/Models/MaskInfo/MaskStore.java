@@ -2,6 +2,15 @@ package com.haeyum.savemask.APIs.Models.MaskInfo;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ *
+ * @author 유광무
+ * @email vnycall74@naver.com
+ * @git https://github.com/kisa002
+ *
+ * @version 1.0.0
+ **/
+
 public class MaskStore {
     @SerializedName("addr")
     private String addr;

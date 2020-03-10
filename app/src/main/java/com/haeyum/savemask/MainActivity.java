@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.util.MarkerIcons;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.haeyum.savemask.APIs.NetClient.MASK_BASE_URL;
 import static com.haeyum.savemask.NoticeManager.createNotice;
@@ -49,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // UI
     private ConstraintLayout clStore;
 
-    private TextView tvStoreName, tvStoreAddr;
-    private TextView tvStoreStock, tvStoreSale, tvStoreTime;
+    private TextView tvStoreName, tvStoreAddr, tvStoreTime;
+    private ImageView ivStoreStatus;
 
     // MAP
     private NaverMap naverMap;
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //    private ArrayList<Marker> markers = new ArrayList<>();
 
     private boolean isLoadedMap;
+    private boolean isShowStore;
 
     private AppPref appPref;
 
@@ -78,7 +81,63 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if(!appPref.getTermsAgree())
             startActivity(new Intent(getApplicationContext(), TermsActivity.class));
 
-//        createNotice(this, "알려드립니다", "마스크를 구매하러 가시기 전,\n신분증을 꼭 챙겨주세요!\n\n출생연도 끝자리에 따라 구매 가능한 요일이 다르며\n마스크는 1주일에 2장만 구매 가능합니다.");
+        int birth = appPref.getBirth();
+        if(birth != -1) {
+            boolean result = false;
+            int x = -1, y = -1;
+
+            switch (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
+                case 2:
+                    x = 1;
+                    y = 6;
+                    if(getCheckBirth(birth, x, y))
+                        result = true;
+                    break;
+
+                case 3:
+                    x = 2;
+                    y = 7;
+                    if(getCheckBirth(birth, x, y))
+                        result = true;
+                    break;
+
+                case 4:
+                    x = 3;
+                    y = 8;
+                    if(getCheckBirth(birth, x, y))
+                        result = true;
+                    break;
+
+                case 5:
+                    x = 4;
+                    y = 9;
+                    if(getCheckBirth(birth, x, y))
+                        result = true;
+                    break;
+
+                case 6:
+                    x = 5;
+                    y = 0;
+
+                    if(getCheckBirth(birth, x, y))
+                        result = true;
+                    break;
+
+                default:
+                    result = true;
+            }
+
+            if(result) {
+                if(x == 1) {
+                    createNotice(this, "잠깐, 마스크를 사셨나요?", "주중에 마스크를 구매하신 못한 분들은 주말에 구매가 가능합니다!\n세이브 마스크를 이용하여 재고가 있는 판매처에 방문하여 마스크를 구해세요!\n\n마스크는 1주일에 2장만 구매 가능하며 신분증을 꼭 챙겨주세요!");
+                } else {
+                    createNotice(this, "마스크 사셔야겠네요!", "오늘은 " + x + "년생과 " + y + "년 생이 사는 날 입니다.\n\n세이브 마스크를 이용하여 재고가 있는 판매처에 방문하여 마스크를 구해세요!\n\n마스크는 1주일에 2장만 구매 가능하며 신분증을 꼭 챙겨주세요!");
+                }
+            } else {
+                createNotice(this, "오늘은 패스...", "오늘은 " + x + "년생과 " + y + "년 생이 사는 날 입니다.\n아쉽게도 다음에 사셔야겠네요...\n\n세이브 마스크 기능은 자유롭게 이용하실 수 있습니다!");
+            }
+        }
+
     }
 
     private void initUI() {
@@ -87,10 +146,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         tvStoreName = findViewById(R.id.tv_main_storeName);
         tvStoreAddr = findViewById(R.id.tv_main_storeAddr);
-
-        tvStoreStock = findViewById(R.id.tv_main_storeStock);
-        tvStoreSale = findViewById(R.id.tv_main_storeSale);
         tvStoreTime = findViewById(R.id.tv_main_storeTime);
+
+        ivStoreStatus = findViewById(R.id.iv_main_storeStatus);
 
         new Handler().postDelayed(() -> {
             clStore.setAlpha(1);
@@ -98,12 +156,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, 100);
     }
 
+    private boolean getCheckBirth(int birth, int x, int y) {
+        return birth == x || birth == y ? true : false;
+    }
+
     private void getMaskStores(LatLng latLng) {
 //        if(1==1) {
 //            return;
 //        }
 
-        String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=1000";
+        String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=5000";
         Call<MaskStores> res = NetClient.NetClientNaver().getMaskStores(query);
 
         res.enqueue(new Callback<MaskStores>() {
@@ -125,7 +187,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 for(MaskStore maskStore : response.body().getStores()) {
                     LatLng pos = new LatLng(maskStore.getLat(), maskStore.getLng());
-                    Log.d("asd", "pos: " + pos);
 
                     InfoWindow.Adapter adapter;
                     adapter = new InfoWindow.Adapter() {
@@ -136,6 +197,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     };
 
+                    tvStoreName.setText(maskStore.getName());
+                    tvStoreAddr.setText(maskStore.getAddr());
+                    tvStoreTime.setText(maskStore.getStock_at());
+
                     InfoWindow infoWindow = new InfoWindow();
                     infoWindow.setAdapter(adapter);
                     infoWindow.setPosition(pos);
@@ -144,6 +209,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     infoWindow.setOnClickListener(overlay -> {
                         tvStoreName.setText(maskStore.getName());
                         tvStoreAddr.setText(maskStore.getAddr());
+
+                        int remainId = -1;
+                        if(maskStore.getRemain_stat() != null)
+                            switch (maskStore.getRemain_stat()) {
+                                case "plenty":
+                                    remainId = R.drawable.plenty;
+                                    break;
+
+                                case "some":
+                                    remainId = R.drawable.some;
+                                    break;
+
+                                case "few":
+                                    remainId = R.drawable.few;
+                                    break;
+
+                                default:
+                                    remainId = R.drawable.empty;
+                                    break;
+                            }
+                        else
+                            remainId = R.drawable.empty;
+
+                        ivStoreStatus.setImageResource(remainId);
 
                         showStore();
                         return false;
@@ -175,11 +264,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void showStore() {
-        clStore.animate().translationYBy(-clStore.getHeight()).setDuration(300).start();
+        if(isShowStore) {
+//            reopenStore();
+            return;
+        }
+        clStore.animate().translationYBy(-clStore.getHeight()).setDuration(300).withEndAction(() -> {
+            isShowStore = true;
+        });
     }
 
     private void hideStore() {
-        clStore.animate().translationYBy(clStore.getHeight()).setDuration(300);
+        if(!isShowStore)
+            return;
+
+        clStore.animate().translationYBy(clStore.getHeight()).setDuration(300).withEndAction(() -> {
+            isShowStore = false;
+        });
+    }
+
+    private void reopenStore() {
+        clStore.animate().translationYBy(clStore.getHeight()).setDuration(300).withEndAction(() -> {
+            clStore.animate().translationYBy(-clStore.getHeight()).setDuration(300).start();
+        });
     }
 
     @Override
@@ -236,7 +342,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude())).animate(CameraAnimation.Linear); //new LatLng(37.5666102, 126.9783881)
                 naverMap.moveCamera(cameraUpdate);
 
-                showStore();
+//                showStore();
+                break;
+
+            case R.id.btn_main_share:
+
                 break;
 
             case R.id.btn_main_storeClose:

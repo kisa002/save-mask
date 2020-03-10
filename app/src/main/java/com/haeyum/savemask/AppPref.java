@@ -8,6 +8,7 @@ public class AppPref {
     private SharedPreferences.Editor editor;
 
     private final String KEY_TERMS_AGREE = "terms_agree";
+    private final String KEY_BIRTH = "birth";
 
     public AppPref(Context activity) {
         String PREF_NAME = "save-mask";
@@ -21,7 +22,16 @@ public class AppPref {
         editor.commit();
     }
 
+    public void setBirth(int birth) {
+        editor.putInt(KEY_BIRTH, birth);
+        editor.commit();
+    }
+
     public Boolean getTermsAgree() {
         return preferences.getBoolean(KEY_TERMS_AGREE, false);
+    }
+
+    public int getBirth() {
+        return preferences.getInt(KEY_BIRTH, -1);
     }
 }

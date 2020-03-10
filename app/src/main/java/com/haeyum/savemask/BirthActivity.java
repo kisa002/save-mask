@@ -27,12 +27,17 @@ public class BirthActivity extends AppCompatActivity {
 
     private boolean isAnimate;
 
+    private int selectedNumber;
+
+    private AppPref appPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birth);
 
         initUI();
+        appPref = new AppPref(this);
     }
 
     private void initUI() {
@@ -67,6 +72,9 @@ public class BirthActivity extends AppCompatActivity {
                     t.setBackgroundColor(Color.parseColor("#ffffff"));
                 }
 
+                selectedNumber = Integer.parseInt(btn.getText().toString());
+
+//                Toast.makeText(this, "N:" + selectedNumber, Toast.LENGTH_SHORT).show();
                 btnNumbers.get(finalI).setBackgroundColor(Color.parseColor("#e1e1e1"));
             });
 
@@ -110,6 +118,9 @@ public class BirthActivity extends AppCompatActivity {
                 break;
 
             case R.id.btn_birth_save:
+                appPref.setBirth(selectedNumber);
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
                 break;
 
             case R.id.tv_birth_back:

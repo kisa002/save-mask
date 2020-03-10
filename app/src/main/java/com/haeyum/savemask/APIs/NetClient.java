@@ -8,6 +8,15 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+*
+* @author 유광무
+* @email vnycall74@naver.com
+* @git https://github.com/kisa002
+*
+* @version 1.0.0
+**/
+
 public class NetClient {
     public static final String MASK_BASE_URL = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/";
 
