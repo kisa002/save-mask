@@ -134,7 +134,7 @@ public class NearbyActivity extends AppCompatActivity {
                 }
                 else {
                     clFail.setVisibility(View.GONE);
-                    tvContext.setText("마스크 남아있는 약국을\\n모았습니다.");
+                    tvContext.setText("마스크 남아있는 약국을\n모았습니다.");
 
                     nearbyAdapter = null;
                     nearbyAdapter = new NearbyAdapter(maskStores);

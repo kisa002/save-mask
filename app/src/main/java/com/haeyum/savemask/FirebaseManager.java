@@ -1,14 +1,27 @@
 package com.haeyum.savemask;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
+import androidx.annotation.NonNull;
+
+import static com.haeyum.savemask.NoticeManager.createNotice;
+
 public class FirebaseManager {
     public static FirebaseManager instance;
+
+    private int userCount = -1;
+    private int checkSigned = -1;
 
     public static FirebaseManager getInstance() {
         if(instance == null)
@@ -20,23 +33,102 @@ public class FirebaseManager {
     public void sign(String id) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference drInfo = database.getReference("info");
-        drInfo.child("logCount").setValue(111554);
-//        DatabaseReference myRef = database.getReference("users").child(String.valueOf(drInfo.child("logCount")));
+        database.getReference("info").child("userCount").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userCount = Integer.parseInt(dataSnapshot.getValue().toString()) + 1;
 
-//        Log.d("asdasd", "LogCount: " + drInfo.child("logCount"));
+                if(checkSigned == 0) {
+                    String date = Calendar.getInstance().get(Calendar.YEAR) + "." + Calendar.getInstance().get(Calendar.MONTH) + "." + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + " " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
 
-//        String date = Calendar.getInstance().get(Calendar.YEAR) + "." + Calendar.getInstance().get(Calendar.MONTH) + "." + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + " " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
-//
-//        myRef.child("id").setValue(id);
-//        myRef.child("date").setValue(date);
+                    database.getReference("users").child(id).child("id").setValue(id);
+                    database.getReference("users").child(id).child("userCount").setValue(userCount);
+                    database.getReference("users").child(id).child("signedTimestamp").setValue(date);
+
+                    database.getReference("info").child("userCount").setValue(userCount);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        database.getReference("users").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() == null) {
+                    if(userCount != -1) {
+                        String timestamp = Calendar.getInstance().get(Calendar.YEAR) + "." + Calendar.getInstance().get(Calendar.MONTH) + "." + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + " " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
+
+                        database.getReference("users").child(id).child("id").setValue(id);
+                        database.getReference("users").child(id).child("userCount").setValue(userCount);
+                        database.getReference("users").child(id).child("signedTimestamp").setValue(timestamp);
+
+                        database.getReference("info").child("userCount").setValue(userCount);
+                    }
+
+                    checkSigned = 0;
+                } else
+                    checkSigned = -1000;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    public void log(String id) {
+    public void checkVersion(Activity act) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("logs").child(id);
+        DatabaseReference ref = database.getReference("info").child("version");
 
-        String date = Calendar.getInstance().get(Calendar.YEAR) + "." + Calendar.getInstance().get(Calendar.MONTH) + "." + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + " " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
-        myRef.setValue(date);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String version = dataSnapshot.getValue().toString();
+
+                if(!version.equals("1.0.1")) {
+                    createNotice(act, "업데이트 안내", "새로운 버전이 출시되었습니다.\n플레이스토어에서 최신 버전으로 업데이트 바랍니다 :D");
+
+                    final String appPackageName = act.getPackageName(); // getPackageName() from Context or Activity object
+                    try {
+                        act.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        act.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void addLog(String id, String reason) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("info").child("logCount");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int logCount = Integer.parseInt(dataSnapshot.getValue().toString()) + 1;
+                String timestamp = Calendar.getInstance().get(Calendar.YEAR) + "." + Calendar.getInstance().get(Calendar.MONTH) + "." + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + " " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
+
+                database.getReference("info").child("logCount").setValue(logCount);
+
+                database.getReference("logs").child(String.valueOf(logCount)).child("id").setValue(id);
+                database.getReference("logs").child(String.valueOf(logCount)).child("reason").setValue(reason);
+                database.getReference("logs").child(String.valueOf(logCount)).child("timestamp").setValue(timestamp);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -92,9 +92,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         appPref = new AppPref(this);
 
-        if(!appPref.getTermsAgree())
-            startActivity(new Intent(getApplicationContext(), TermsActivity.class));
-
         int birth = appPref.getBirth();
         if(birth != -1) {
             boolean result = false;
@@ -152,8 +149,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
+        if(!appPref.getTermsAgree())
+            startActivity(new Intent(getApplicationContext(), TermsActivity.class));
+
         initFirebase();
-        connectServer();
+//        connectServer();
     }
 
     private void initUI() {
@@ -185,8 +185,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void connectServer() {
-        String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        FirebaseManager.getInstance().sign(androidId);
+
     }
 
     private boolean getCheckBirth(int birth, int x, int y) {
@@ -542,6 +541,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                        Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        FirebaseManager.getInstance().sign(androidId);
+        FirebaseManager.getInstance().checkVersion(this);
+
+        FirebaseManager.getInstance().addLog(androidId, "open");
     }
 
     private void trash() {
