@@ -23,6 +23,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.haeyum.savemask.APIs.Models.MaskInfo.MaskStore;
 import com.haeyum.savemask.APIs.Models.MaskInfo.MaskStores;
 import com.haeyum.savemask.APIs.NetClient;
@@ -148,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
+        initFirebase();
         connectServer();
     }
 
@@ -521,6 +526,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             finish();
         }
         backTimer = SystemClock.uptimeMillis();
+    }
+
+    private void initFirebase() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("FCM Log", "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult().getToken();
+                        Log.d("FCM Log", "FCM 토큰: " + token);
+//                        Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void trash() {

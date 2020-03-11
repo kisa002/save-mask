@@ -1,5 +1,6 @@
 package com.haeyum.savemask;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +11,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -25,12 +31,16 @@ public class SplashActivity extends AppCompatActivity {
 
         appPref = new AppPref(this);
 
+        initUI();
+//        initFirebase();
+    }
+
+    private void initUI() {
         ivTitle = findViewById(R.id.iv_splash_title);
         ivLogo = findViewById(R.id.iv_splash_logo);
 
         vFade = findViewById(R.id.v_splash_fade);
-
-        new Handler().postDelayed(() -> {
+        findViewById(R.id.layout_splash).post(()-> {
             ivTitle.animate().translationYBy(-ivTitle.getHeight() * 1.5f).alpha(0).setDuration(0);
             ivLogo.animate().translationYBy(ivLogo.getHeight()).alpha(0).setDuration(0).withEndAction(()-> {
                 ivTitle.animate().translationYBy(ivTitle.getHeight() * 1.5f).alpha(1).setDuration(600).setStartDelay(400);
@@ -48,18 +58,23 @@ public class SplashActivity extends AppCompatActivity {
                    });
                 });
             });
+        });
+    }
 
-        }, 100);
-
-
-
-
-//        new Handler().postDelayed(() -> {
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intent);
-//
-//            finish();
-//        }, 2000);
+    private void initFirebase() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("FCM Log", "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult().getToken();
+                        Log.d("FCM Log", "FCM 토큰: " + token);
+//                        Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
