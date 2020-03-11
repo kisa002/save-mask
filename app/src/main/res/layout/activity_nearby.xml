@@ -90,6 +90,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_nearby_fail"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="0dp"
         android:background="#ffff"
         android:clickable="true"

@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -48,6 +49,8 @@ public class NearbyActivity extends AppCompatActivity {
     private LatLng latLng;
     private int m = 500;
 
+    private Activity act;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,8 @@ public class NearbyActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        act = this;
+
         latLng = new LatLng(getIntent().getDoubleExtra("lat", -1), getIntent().getDoubleExtra("lng", -1));
         getMaskStores(latLng);
     }
@@ -137,7 +142,7 @@ public class NearbyActivity extends AppCompatActivity {
                     tvContext.setText("마스크 남아있는 약국을\n모았습니다.");
 
                     nearbyAdapter = null;
-                    nearbyAdapter = new NearbyAdapter(maskStores);
+                    nearbyAdapter = new NearbyAdapter(act, maskStores);
 
                     rvNearby.setAdapter(nearbyAdapter);
                 }

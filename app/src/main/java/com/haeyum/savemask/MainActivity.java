@@ -230,9 +230,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     };
 
-                    tvStoreName.setText(maskStore.getName());
-                    tvStoreAddr.setText(maskStore.getAddr());
-                    tvStoreTime.setText(maskStore.getStock_at());
+//                    tvStoreName.setText(maskStore.getName());
+//                    tvStoreAddr.setText(maskStore.getAddr());
+//                    tvStoreTime.setText(maskStore.getStock_at());
 
                     InfoWindow infoWindow = new InfoWindow();
                     infoWindow.setAdapter(adapter);
