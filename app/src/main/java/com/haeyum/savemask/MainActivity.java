@@ -386,6 +386,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.cl_main_optionPlenty:
                 isOptionPlenty = !isOptionPlenty;
@@ -445,14 +446,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             case R.id.btn_main_search:
 //                Toast.makeText(this, "마스크 정보를 조회합니다!", Toast.LENGTH_SHORT).show();
-                createNotice(this, "뚝딱뚝딱 만들고 있어요!", "산업기능요원으로 근무하다보니 시간이 부족하여 완성되지 못했습니다ㅜㅜ\n\n퇴근 시간을 모아 조금씩 만들고 있으니 며칠내로 유용한 기능이 생길꺼에요!!\n\n개발 문의: vnycall74@naver.com");
+//                createNotice(this, "뚝딱뚝딱 만들고 있어요!", "산업기능요원으로 근무하다보니 시간이 부족하여 완성되지 못했습니다ㅜㅜ\n\n퇴근 시간을 모아 조금씩 만들고 있으니 며칠내로 유용한 기능이 생길꺼에요!!\n\n개발 문의: vnycall74@naver.com");
+                intent = new Intent(getApplicationContext(), NearbyActivity.class);
+                intent.putExtra("lat", locationSource.getLastLocation().getLatitude());
+                intent.putExtra("lng", locationSource.getLastLocation().getLongitude());
 
-//                getMaskStores(currentMarker.getPosition());
-//                findViewById(R.id.btn_main_search).setEnabled(false);
-//
-//                new Handler().postDelayed(() -> {
-//                    findViewById(R.id.btn_main_search).setEnabled(true);
-//                }, 1000);
+                startActivity(intent);
                 break;
 
             case R.id.btn_main_currentLocation:
@@ -463,7 +462,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
 
             case R.id.btn_main_share:
-                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent = new Intent(android.content.Intent.ACTION_SEND);
 
                 intent.setType("text/plain");
 

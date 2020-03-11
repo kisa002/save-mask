@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NearbyActivity"
+    android:background="#ffff">
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_nearby_top"
+        android:layout_width="match_parent"
+        android:layout_height="326.7dp"
+        android:background="#ffff"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_nearby_back"
+            android:onClick="onClick"
+            android:layout_width="66.7dp"
+            android:layout_height="66.7dp"
+            android:background="@drawable/back_icon_copy"
+            android:layout_marginLeft="19.3dp"
+            android:layout_marginTop="24.7dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_nearby_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="현재위치 1km 반경"
+            android:textSize="24sp"
+            android:fontFamily="@font/kopubdotum_bold"
+            android:textColor="#2b3078"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="27.3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_nearby_back"/>
+
+        <TextView
+            android:id="@+id/tv_nearby_context"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마스크 남아있는 약국을\n모았습니다."
+            android:textSize="24sp"
+            android:fontFamily="@font/kopubdotum_bold"
+            android:textColor="#4c4c4c"
+            android:layout_marginTop="24.7dp"
+            app:layout_constraintStart_toStartOf="@id/tv_nearby_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_nearby_title"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/v_nearby_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/shadow_gradient2"
+        app:layout_constraintTop_toBottomOf="@id/cl_nearby_top"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_nearby"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingLeft="33dp"
+        android:paddingTop="15dp"
+        android:paddingRight="33dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_nearby_more"
+        app:layout_constraintTop_toBottomOf="@id/v_nearby_shadow">
+
+    </androidx.recyclerview.widget.RecyclerView>.
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_nearby_more2"-->
+<!--        android:onClick="onClick"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background="@drawable/rounded_button1"-->
+<!--        android:text="2km 거리로 찾아보기"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textColor="#ffff"-->
+<!--        android:fontFamily="@font/kopubdotum_bold"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:layout_marginBottom="30dp"/>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_nearby_fail"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#ffff"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@id/cl_nearby_top"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_nearby_fail"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/emoji"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_nearby_more"
+        android:onClick="onClick"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_button1"
+        android:text="2km 거리로 찾아보기"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textColor="#ffff"
+        android:fontFamily="@font/kopubdotum_bold"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
