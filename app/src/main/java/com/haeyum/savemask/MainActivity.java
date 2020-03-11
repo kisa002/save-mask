@@ -455,8 +455,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
 
             case R.id.btn_main_currentLocation:
-                CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude())).animate(CameraAnimation.Linear); //new LatLng(37.5666102, 126.9783881)
-                naverMap.moveCamera(cameraUpdate);
+                try {
+                    CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude())).animate(CameraAnimation.Linear); //new LatLng(37.5666102, 126.9783881)
+                    naverMap.moveCamera(cameraUpdate);
+                } catch(Exception e) {
+                    Toast.makeText(this, "현재 위치를 받아올 수 없습니다... 직접 마커를 이동해주세요ㅜㅜ", Toast.LENGTH_SHORT).show();
+                }
 
 //                showStore();
                 break;

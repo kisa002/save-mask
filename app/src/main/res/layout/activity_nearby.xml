@@ -42,7 +42,7 @@
             android:id="@+id/tv_nearby_context"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="마스크 남아있는 약국을\n모았습니다."
+            android:text="마스크 남아있는 약국을\n모아오고 있습니다..."
             android:textSize="24sp"
             android:fontFamily="@font/kopubdotum_bold"
             android:textColor="#4c4c4c"
@@ -69,7 +69,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_nearby_more"
         app:layout_constraintTop_toBottomOf="@id/v_nearby_shadow">
 
-    </androidx.recyclerview.widget.RecyclerView>.
+    </androidx.recyclerview.widget.RecyclerView>
 
 <!--    <Button-->
 <!--        android:id="@+id/btn_nearby_more2"-->
@@ -89,13 +89,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_nearby_fail"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#ffff"
         android:clickable="true"
         app:layout_constraintTop_toBottomOf="@id/cl_nearby_top"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toTopOf="@id/btn_nearby_more">
 
         <ImageView
             android:id="@+id/iv_nearby_fail"
@@ -105,6 +104,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="2km로 넓혀서 다시 찾아볼까요?"-->
+<!--            android:textColor="#2b3078"-->
+<!--            android:textSize="14sp"-->
+<!--            android:fontFamily="@font/kopubdotum_bold"-->
+<!--            android:layout_marginBottom="17dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"/>-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

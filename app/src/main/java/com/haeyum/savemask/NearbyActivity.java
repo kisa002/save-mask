@@ -36,7 +36,7 @@ public class NearbyActivity extends AppCompatActivity {
     private RecyclerView rvNearby;
     private ArrayList<MaskStore> maskStores = new ArrayList<>();
 
-    private TextView tvTitle;
+    private TextView tvTitle, tvContext;
     private ConstraintLayout clFail;
     private ImageView ivFail;
     private View vFail;
@@ -62,6 +62,7 @@ public class NearbyActivity extends AppCompatActivity {
         rvNearby.setLayoutManager(new LinearLayoutManager(this));
 
         tvTitle = findViewById(R.id.tv_nearby_title);
+        tvContext = findViewById(R.id.tv_nearby_context);
 
         clFail = findViewById(R.id.cl_nearby_fail);
         ivFail = findViewById(R.id.iv_nearby_fail);
@@ -100,6 +101,8 @@ public class NearbyActivity extends AppCompatActivity {
                 }
 
                 if(maskStores.size() == 0) {
+                    tvContext.setText("마스크가 남아있는 약국이 없네요.");
+
                     clFail.setVisibility(View.VISIBLE);
 
                     ivFail.post(()->{
@@ -131,6 +134,7 @@ public class NearbyActivity extends AppCompatActivity {
                 }
                 else {
                     clFail.setVisibility(View.GONE);
+                    tvContext.setText("마스크 남아있는 약국을\\n모았습니다.");
 
                     nearbyAdapter = null;
                     nearbyAdapter = new NearbyAdapter(maskStores);
