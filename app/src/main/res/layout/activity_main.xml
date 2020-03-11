@@ -12,6 +12,232 @@
         android:layout_height="match_parent"
         android:name="com.naver.maps.map.MapFragment"/>
 
+    <LinearLayout
+        android:id="@+id/cl_main_options"
+        android:layout_width="match_parent"
+        android:layout_height="63.3dp"
+        android:gravity="left|center"
+        android:weightSum="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="21.3dp"
+        android:layout_marginTop="27dp">
+        
+        <ImageView
+            android:layout_width="63.3dp"
+            android:layout_height="63.3dp"
+            android:src="@drawable/marker_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_button2"
+            android:backgroundTint="#ffff">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:paddingLeft="11dp"
+                android:paddingRight="11dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_main_optionPlenty"
+                    android:onClick="onClick"
+                    android:layout_width="57.3dp"
+                    android:layout_height="21.3dp"
+                    android:backgroundTint="#5d65dc"
+                    android:background="@drawable/none_bg">
+
+                    <TextView
+                        android:id="@+id/tv_main_optionPlenty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="충분"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/kopubdotum_bold"
+                        android:textSize="12sp"
+                        android:textColor="#ffff"
+                        android:layout_marginLeft="9.3dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_main_optionPlentyCircle"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="4.7dp"
+                        android:src="@drawable/circle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_main_optionPlenty"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_main_optionPlentyCheck"
+                        android:layout_width="7.7dp"
+                        android:layout_height="8.3dp"
+                        android:src="@drawable/copy"
+                        android:backgroundTint="@color/colorPrimary"
+                        app:layout_constraintTop_toTopOf="@id/iv_main_optionPlentyCircle"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_main_optionPlentyCircle"
+                        app:layout_constraintStart_toStartOf="@id/iv_main_optionPlentyCircle"
+                        app:layout_constraintEnd_toEndOf="@id/iv_main_optionPlentyCircle"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_main_optionSome"
+                    android:onClick="onClick"
+                    android:layout_width="57.3dp"
+                    android:layout_height="21.3dp"
+                    android:background="@drawable/none_bg"
+                    android:backgroundTint="#5d65dc"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:id="@+id/tv_main_optionSome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="보통"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/kopubdotum_bold"
+                        android:textSize="12sp"
+                        android:textColor="#ffff"
+                        android:layout_marginLeft="9.3dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_main_optionSomeCircle"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="4.7dp"
+                        android:src="@drawable/circle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_main_optionSome"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_main_optionSomeCheck"
+                        android:layout_width="7.7dp"
+                        android:layout_height="8.3dp"
+                        android:src="@drawable/copy"
+                        android:backgroundTint="@color/colorPrimary"
+                        app:layout_constraintTop_toTopOf="@id/iv_main_optionSomeCircle"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_main_optionSomeCircle"
+                        app:layout_constraintStart_toStartOf="@id/iv_main_optionSomeCircle"
+                        app:layout_constraintEnd_toEndOf="@id/iv_main_optionSomeCircle"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_main_optionFew"
+                    android:onClick="onClick"
+                    android:layout_width="57.3dp"
+                    android:layout_height="21.3dp"
+                    android:background="@drawable/none_bg"
+                    android:backgroundTint="#5d65dc"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:id="@+id/tv_main_optionFew"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="소량"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/kopubdotum_bold"
+                        android:textSize="12sp"
+                        android:textColor="#ffff"
+                        android:layout_marginLeft="9.3dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_main_optionFewCircle"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="4.7dp"
+                        android:src="@drawable/circle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_main_optionFew"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_main_optionFewCheck"
+                        android:layout_width="7.7dp"
+                        android:layout_height="8.3dp"
+                        android:src="@drawable/copy"
+                        android:backgroundTint="@color/colorPrimary"
+                        app:layout_constraintTop_toTopOf="@id/iv_main_optionFewCircle"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_main_optionFewCircle"
+                        app:layout_constraintStart_toStartOf="@id/iv_main_optionFewCircle"
+                        app:layout_constraintEnd_toEndOf="@id/iv_main_optionFewCircle"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_main_optionEmpty"
+                    android:onClick="onClick"
+                    android:layout_width="57.3dp"
+                    android:layout_height="21.3dp"
+                    android:background="@drawable/none_bg">
+
+                    <TextView
+                        android:id="@+id/tv_main_optionEmpty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="품절"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/kopubdotum_bold"
+                        android:textSize="12sp"
+                        android:textColor="#ffff"
+                        android:layout_marginLeft="9.3dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_main_optionEmptyCircle"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="4.7dp"
+                        android:src="@drawable/circle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_main_optionEmpty"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_main_optionEmptyCheck"
+                        android:layout_width="7.7dp"
+                        android:layout_height="8.3dp"
+                        android:visibility="gone"
+                        android:src="@drawable/copy"
+                        android:backgroundTint="@color/colorPrimary"
+                        app:layout_constraintTop_toTopOf="@id/iv_main_optionEmptyCircle"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_main_optionEmptyCircle"
+                        app:layout_constraintStart_toStartOf="@id/iv_main_optionEmptyCircle"
+                        app:layout_constraintEnd_toEndOf="@id/iv_main_optionEmptyCircle"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +252,17 @@
             android:layout_marginLeft="24dp"
             android:layout_marginBottom="108dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_main_setting"
+            android:onClick="onClick"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/option_icon"
+            android:layout_marginRight="26dp"
+            android:layout_marginBottom="111dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <Button
@@ -46,6 +283,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_main_store"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -223,33 +461,5 @@
                 app:layout_constraintStart_toEndOf="@id/tv_main_fixStoreTime"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_main_toastDay"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:background="@drawable/blue_popup"
-            android:text="월"
-            android:textSize="12sp"
-            android:textColor="#ffff"
-            android:fontFamily="@font/kopubdotum_bold"
-            android:textAlignment="center"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="65dp"
-            android:background="@drawable/white_popup"
-            app:layout_constraintStart_toEndOf="@id/tv_main_toastDay"
-            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

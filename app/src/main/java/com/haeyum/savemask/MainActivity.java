@@ -10,6 +10,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // UI
     private ConstraintLayout clStore;
 
+    private ConstraintLayout clOptionPlenty, clOptionSome, clOptionFew, clOptionEmpty;
+    private ImageView ivOptionPlentyCheck, ivOptionSomeCheck, ivOptionFewCheck, ivOptionEmptyCheck;
+
     private TextView tvStoreName, tvStoreAddr, tvStoreTime;
     private ImageView ivStoreStatus;
 
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // Marker
     private Marker currentMarker;
     private ArrayList<InfoWindow> infoWindows = new ArrayList<>();
+    private ArrayList<MaskStore> maskStores = new ArrayList<>();
 //    private ArrayList<Marker> markers = new ArrayList<>();
 
     private boolean isLoadedMap;
@@ -70,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private AppPref appPref;
 
     private MaskStore selectMaskStore;
+
+    private Boolean isOptionPlenty = true, isOptionSome = true, isOptionFew = true, isOptionEmpty = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +155,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         clStore = findViewById(R.id.cl_main_store);
         clStore.setAlpha(0);
 
+        clOptionPlenty = findViewById(R.id.cl_main_optionPlenty);
+        ivOptionPlentyCheck = findViewById(R.id.iv_main_optionPlentyCheck);
+
+        clOptionSome = findViewById(R.id.cl_main_optionSome);
+        ivOptionSomeCheck = findViewById(R.id.iv_main_optionSomeCheck);
+
+        clOptionFew = findViewById(R.id.cl_main_optionFew);
+        ivOptionFewCheck = findViewById(R.id.iv_main_optionFewCheck);
+
+        clOptionEmpty = findViewById(R.id.cl_main_optionEmpty);
+        ivOptionEmptyCheck = findViewById(R.id.iv_main_optionEmptyCheck);
+
         tvStoreName = findViewById(R.id.tv_main_storeName);
         tvStoreAddr = findViewById(R.id.tv_main_storeAddr);
         tvStoreTime = findViewById(R.id.tv_main_storeTime);
@@ -190,8 +209,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
                 infoWindows.clear();
+                maskStores.clear();
 
                 for(MaskStore maskStore : response.body().getStores()) {
+                    if(maskStore.getRemain_stat() == null)
+                        continue;
+
                     LatLng pos = new LatLng(maskStore.getLat(), maskStore.getLng());
 
                     InfoWindow.Adapter adapter;
@@ -246,8 +269,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     });
 
 //                    markers.add(marker);
+                    maskStores.add(maskStore);
                     infoWindows.add(infoWindow);
                 }
+
+                changeOption();
             }
 
             @Override
@@ -335,8 +361,88 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         getMaskStores(naverMap.getCameraPosition().target);
     }
 
+    private void changeOption() {
+        for(int i=0; i<maskStores.size(); i++) {
+            if(maskStores.get(i) == null)
+                continue;
+            else
+                if(maskStores.get(i).getRemain_stat() == null)
+                    continue;
+
+            MaskStore maskStore = maskStores.get(i);
+
+            if(maskStore.getRemain_stat().equals("plenty"))
+                infoWindows.get(i).setVisible(isOptionPlenty);
+
+            if(maskStore.getRemain_stat().equals("some"))
+                infoWindows.get(i).setVisible(isOptionSome);
+
+            if(maskStore.getRemain_stat().equals("few"))
+                infoWindows.get(i).setVisible(isOptionFew);
+
+            if(maskStore.getRemain_stat().equals("empty"))
+                infoWindows.get(i).setVisible(isOptionEmpty);
+        }
+    }
+
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.cl_main_optionPlenty:
+                isOptionPlenty = !isOptionPlenty;
+
+                if(isOptionPlenty) {
+                    ivOptionPlentyCheck.setVisibility(View.VISIBLE);
+                    clOptionPlenty.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5d65dc")));
+                } else {
+                    ivOptionPlentyCheck.setVisibility(View.GONE);
+                    clOptionPlenty.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#979797")));
+                }
+
+                changeOption();
+                break;
+
+            case R.id.cl_main_optionSome:
+                isOptionSome = !isOptionSome;
+
+                if(isOptionSome) {
+                    ivOptionSomeCheck.setVisibility(View.VISIBLE);
+                    clOptionSome.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5d65dc")));
+                } else {
+                    ivOptionSomeCheck.setVisibility(View.GONE);
+                    clOptionSome.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#979797")));
+                }
+
+                changeOption();
+                break;
+
+            case R.id.cl_main_optionFew:
+                isOptionFew = !isOptionFew;
+
+                if(isOptionFew) {
+                    ivOptionFewCheck.setVisibility(View.VISIBLE);
+                    clOptionFew.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5d65dc")));
+                } else {
+                    ivOptionFewCheck.setVisibility(View.GONE);
+                    clOptionFew.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#979797")));
+                }
+
+                changeOption();
+                break;
+
+            case R.id.cl_main_optionEmpty:
+                isOptionEmpty = !isOptionEmpty;
+
+                if(isOptionEmpty) {
+                    ivOptionEmptyCheck.setVisibility(View.VISIBLE);
+                    clOptionEmpty.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5d65dc")));
+                } else {
+                    ivOptionEmptyCheck.setVisibility(View.GONE);
+                    clOptionEmpty.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#979797")));
+                }
+
+                changeOption();
+                break;
+
             case R.id.btn_main_search:
 //                Toast.makeText(this, "마스크 정보를 조회합니다!", Toast.LENGTH_SHORT).show();
                 createNotice(this, "뚝딱뚝딱 만들고 있어요!", "산업기능요원으로 근무하다보니 시간이 부족하여 완성되지 못했습니다ㅜㅜ\n\n퇴근 시간을 모아 조금씩 만들고 있으니 며칠내로 유용한 기능이 생길꺼에요!!\n\n개발 문의: vnycall74@naver.com");
