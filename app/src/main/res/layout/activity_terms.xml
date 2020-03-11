@@ -27,157 +27,168 @@
             android:fontFamily="@font/kopubdotum_bold"
             android:layout_marginTop="30dp"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="375dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="⦁"
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="세이브 마스크는 누구나 쉽게 마스크를 구매할 수 있도록 만들어진 서비스 입니다."
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⦁"
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="⦁"
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="세이브 마스크는 누구나 쉽게 마스크를 구매할 수 있도록 만들어진 서비스 입니다."
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="마스크 재고는 5분에서 10분 정도 지연되어 업데이트될 수 있기에 약간의 오차가 있을 수 있습니다."
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⦁"
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="⦁"
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="마스크 재고는 5분에서 10분 정도 지연되어 업데이트될 수 있기에 약간의 오차가 있을 수 있습니다."
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="코로나바이러스 해결을 위해 가장 앞서 노력하시는 의료 관계자와 약사분들께 감사한 마음을 전합니다."
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⦁"
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="⦁"
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="코로나바이러스 해결을 위해 가장 앞서 노력하시는 의료 관계자와 약사분들께 감사한 마음을 전합니다."
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="위의 사항을 인지하시고 약사분들께 친절하게 대해주시길 바랍니다."
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⦁"
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="⦁"
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="위의 사항을 인지하시고 약사분들께 친절하게 대해주시길 바랍니다."
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="본 마스크 재고 데이터는 공공데이터포털(건강보험심사평가원)을 통해 제공되고 있습니다."
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⦁"
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="⦁"
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="본 마스크 재고 데이터는 공공데이터포털(건강보험심사평가원)을 통해 제공되고 있습니다."
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="개발자 문의: vnycall74@naver.com\n데이터 공개 문의: maskdata@nia.or.kr"
-                android:textSize="15sp"
-                android:textColor="#343434"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="30dp"/>
-        </LinearLayout>
-        
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⦁"
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="개발자 문의: vnycall74@naver.com\n데이터 공개 문의: maskdata@nia.or.kr"
+                        android:textSize="15sp"
+                        android:textColor="#343434"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="30dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
         <Button
             android:id="@+id/btn_terms"
             android:onClick="onClick"

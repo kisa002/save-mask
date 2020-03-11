@@ -140,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 createNotice(this, "오늘은 패스...", "오늘은 " + x + "년생과 " + y + "년 생이 사는 날 입니다.\n아쉽게도 다음에 사셔야겠네요...\n\n세이브 마스크 기능은 자유롭게 이용하실 수 있습니다!");
             }
         }
+
+        connectServer();
     }
 
     private void initUI() {
@@ -178,8 +180,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         res.enqueue(new Callback<MaskStores>() {
             @Override
             public void onResponse(Call<MaskStores> call, Response<MaskStores> response) {
-//                Toast.makeText(MainActivity.this, "getMaskStores", Toast.LENGTH_SHORT).show();
-
                 if(response.body() == null) {
                     Toast.makeText(getApplicationContext(), "서버 연결에 실패하였습니다... 관리자에게 문의바랍니다", Toast.LENGTH_SHORT).show();
                     return;
@@ -189,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     iw.close();
                 }
 
-//                markers.clear();
                 infoWindows.clear();
 
                 for(MaskStore maskStore : response.body().getStores()) {

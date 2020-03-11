@@ -1,5 +1,7 @@
 package com.haeyum.savemask;
 
+import android.util.Log;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,13 +21,15 @@ public class FirebaseManager {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference drInfo = database.getReference("info");
-        drInfo.child("logCount").setValue(10);
-        DatabaseReference myRef = database.getReference("users").child(String.valueOf(drInfo.child("logCount")));
+        drInfo.child("logCount").setValue(111554);
+//        DatabaseReference myRef = database.getReference("users").child(String.valueOf(drInfo.child("logCount")));
 
-        String date = Calendar.getInstance().get(Calendar.YEAR) + "." + Calendar.getInstance().get(Calendar.MONTH) + "." + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + " " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
+//        Log.d("asdasd", "LogCount: " + drInfo.child("logCount"));
 
-        myRef.child("id").setValue(id);
-        myRef.child("date").setValue(date);
+//        String date = Calendar.getInstance().get(Calendar.YEAR) + "." + Calendar.getInstance().get(Calendar.MONTH) + "." + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + " " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
+//
+//        myRef.child("id").setValue(id);
+//        myRef.child("date").setValue(date);
     }
 
     public void log(String id) {
