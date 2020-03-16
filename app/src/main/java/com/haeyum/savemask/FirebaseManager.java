@@ -124,8 +124,6 @@ public class FirebaseManager {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("A", cal);
-
                 int logCount = 1;
                 if(dataSnapshot.getValue() != null)
                     logCount = Integer.parseInt(dataSnapshot.getValue().toString()) + 1;

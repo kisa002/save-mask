@@ -182,10 +182,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         ivStoreStatus = findViewById(R.id.iv_main_storeStatus);
 
-        new Handler().postDelayed(() -> {
+        findViewById(R.id.layout_main).post(() -> {
             clStore.setAlpha(1);
             clStore.animate().translationYBy(clStore.getHeight()).start();
-        }, 100);
+        });
     }
 
     private void connectServer() {
