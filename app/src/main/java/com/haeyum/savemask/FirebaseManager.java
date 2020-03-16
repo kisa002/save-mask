@@ -116,19 +116,27 @@ public class FirebaseManager {
     }
 
     public void addLog(String id, String reason) {
+        Calendar calendar = Calendar.getInstance();
+        String cal = calendar.get(Calendar.YEAR) + "" + ((calendar.get(Calendar.MONTH) < 10) ? "0" + calendar.get(Calendar.MONTH) : calendar.get(Calendar.MONTH)) + "" + calendar.get(Calendar.DAY_OF_MONTH);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("info").child("logCount");
+        DatabaseReference ref = database.getReference("info").child("log").child(cal);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int logCount = Integer.parseInt(dataSnapshot.getValue().toString()) + 1;
-                String timestamp = Calendar.getInstance().get(Calendar.YEAR) + "." + Calendar.getInstance().get(Calendar.MONTH) + "." + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + " " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
+                Log.d("A", cal);
 
-                database.getReference("info").child("logCount").setValue(logCount);
+                int logCount = 1;
+                if(dataSnapshot.getValue() != null)
+                    logCount = Integer.parseInt(dataSnapshot.getValue().toString()) + 1;
 
-                database.getReference("logs").child(String.valueOf(logCount)).child("id").setValue(id);
-                database.getReference("logs").child(String.valueOf(logCount)).child("reason").setValue(reason);
-                database.getReference("logs").child(String.valueOf(logCount)).child("timestamp").setValue(timestamp);
+                String timestamp = calendar.get(Calendar.YEAR) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND);
+
+                database.getReference("info").child("log").child(cal).setValue(logCount);
+
+                database.getReference("log").child(cal).child(String.valueOf(logCount)).child("id").setValue(id);
+                database.getReference("log").child(cal).child(String.valueOf(logCount)).child("reason").setValue(reason);
+                database.getReference("log").child(cal).child(String.valueOf(logCount)).child("timestamp").setValue(timestamp);
             }
 
             @Override
