@@ -27,10 +27,12 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 finish();
+                MainActivity.activity.finish();
                 break;
 
             case R.id.cl_setting_developer:
-
+                intent = new Intent(getApplicationContext(), DeveloperActivity.class);
+                startActivity(intent);
                 break;
         }
     }

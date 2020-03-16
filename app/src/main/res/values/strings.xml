@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">세이브 마스크</string>
+    <string name="face1_introduce">현재 한국산업기술대학교\n컴퓨터공학부 소프트웨어학과\n1학년 휴학 후 산업기능요원으로\n활동하고 있는 <b>유광무</b> 입니다 :D</string>
+    <string name="face2_introduce">부천대학교\n영상&amp;게임콘텐츠 학과\n재학중인 <b>이유진</b> 입니다.</string>
 </resources>

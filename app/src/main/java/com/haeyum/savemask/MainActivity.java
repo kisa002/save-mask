@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -51,6 +52,8 @@ import static com.haeyum.savemask.APIs.NetClient.MASK_BASE_URL;
 import static com.haeyum.savemask.NoticeManager.createNotice;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NaverMap.OnLocationChangeListener, NaverMap.OnCameraChangeListener, NaverMap.OnCameraIdleListener {
+    public static Activity activity;
+
     private final String TAG = "MainActivity";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
 
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         initMap();
 
         appPref = new AppPref(this);
+        activity = this;
 
         int birth = appPref.getBirth();
         if(birth != -1) {
