@@ -242,6 +242,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     infoWindow.setOnClickListener(overlay -> {
                         tvStoreName.setText(maskStore.getName());
                         tvStoreAddr.setText(maskStore.getAddr());
+                        tvStoreTime.setText(maskStore.getStock_at());
 
                         int remainId = -1;
                         if(maskStore.getRemain_stat() != null)
@@ -384,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             if(maskStore.getRemain_stat().equals("few"))
                 infoWindows.get(i).setVisible(isOptionFew);
 
-            if(maskStore.getRemain_stat().equals("empty"))
+            if(maskStore.getRemain_stat().equals("empty") || maskStore.getRemain_stat().equals("break"))
                 infoWindows.get(i).setVisible(isOptionEmpty);
         }
     }

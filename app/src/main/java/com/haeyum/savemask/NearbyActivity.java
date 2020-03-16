@@ -99,7 +99,7 @@ public class NearbyActivity extends AppCompatActivity {
                     if(maskStore.getRemain_stat() == null)
                         continue;
 
-                    if(maskStore.getRemain_stat().equals("empty"))
+                    if(maskStore.getRemain_stat().equals("empty") || maskStore.getRemain_stat().equals("break"))
                         continue;
 
                     maskStores.add(maskStore);

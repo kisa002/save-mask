@@ -58,6 +58,8 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.ViewHolder
                 break;
 
             case "empty":
+            case "break":
+            default:
                 stat = R.drawable.empty;
                 break;
         }
