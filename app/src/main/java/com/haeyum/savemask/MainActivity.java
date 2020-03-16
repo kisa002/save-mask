@@ -508,6 +508,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 break;
 
+            case R.id.btn_main_setting:
+                intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.btn_main_storeClose:
                 hideStore();
                 break;

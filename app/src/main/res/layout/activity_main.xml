@@ -256,7 +256,6 @@
 
         <Button
             android:id="@+id/btn_main_setting"
-            android:visibility="gone"
             android:onClick="onClick"
             android:layout_width="65dp"
             android:layout_height="65dp"
