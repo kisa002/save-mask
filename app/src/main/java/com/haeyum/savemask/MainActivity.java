@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 maskStores.clear();
 
                 for(MaskStore maskStore : response.body().getStores()) {
-                    if(maskStore.getRemain_stat() == null)
+                    if(maskStore.getRemain_stat() == null || maskStore.getLat() == null || maskStore.getLng() == null)
                         continue;
 
                     LatLng pos = new LatLng(maskStore.getLat(), maskStore.getLng());
