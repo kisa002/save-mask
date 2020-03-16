@@ -10,4 +10,11 @@ public class NoticeManager {
         intent.putExtra("context", context);
         activity.startActivity(intent);
     }
+//
+//    public static void createNotice(Activity activity, String title, String context, IFNotice ifNotice) {
+//        Intent intent = new Intent(activity, NoticeActivity.class);
+//        intent.putExtra("title", title);
+//        intent.putExtra("context", context);
+//        activity.startActivity(intent);
+//    }
 }

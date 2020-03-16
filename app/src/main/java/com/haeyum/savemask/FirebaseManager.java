@@ -12,8 +12,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 import androidx.annotation.NonNull;
+
+import dagger.multibindings.ElementsIntoSet;
 
 import static com.haeyum.savemask.NoticeManager.createNotice;
 
@@ -22,6 +25,8 @@ public class FirebaseManager {
 
     private int userCount = -1;
     private int checkSigned = -1;
+
+    private String version, updateLog;
 
     public static FirebaseManager getInstance() {
         if(instance == null)
@@ -83,15 +88,16 @@ public class FirebaseManager {
 
     public void checkVersion(Activity act) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("info").child("version");
+        DatabaseReference ref = database.getReference("info").child("update");
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String version = dataSnapshot.getValue().toString();
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap = (HashMap<String, String>) dataSnapshot.getValue();
 
-                if(!version.equals("1.0.1")) {
-                    createNotice(act, "업데이트 안내", "새로운 버전이 출시되었습니다.\n플레이스토어에서 최신 버전으로 업데이트 바랍니다 :D");
+                if(!hashMap.get("version").equals("1.0.2")) {
+                    createNotice(act, "업데이트 안내", hashMap.get("log")); //새로운 버전이 출시되었습니다. 플레이스토어에서 최신 버전으로 업데이트 바랍니다 :D
 
                     final String appPackageName = act.getPackageName(); // getPackageName() from Context or Activity object
                     try {
