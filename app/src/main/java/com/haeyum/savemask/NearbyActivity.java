@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,8 @@ public class NearbyActivity extends AppCompatActivity {
     private ImageView ivFail;
     private View vFail;
 
+    private RelativeLayout rlLoading;
+    private ProgressBar progressBar;
     private TextView tvPlace, tvTip;
 
     private Button btnMore;
@@ -77,6 +81,8 @@ public class NearbyActivity extends AppCompatActivity {
         ivFail = findViewById(R.id.iv_nearby_fail);
         vFail = findViewById(R.id.v_nearby_shadow);
 
+        rlLoading = findViewById(R.id.rl_nearby_loading);
+        progressBar = findViewById(R.id.pb_nearby);
         tvPlace = findViewById(R.id.tv_nearby_place);
         tvTip = findViewById(R.id.tv_nearby_tip);
 
@@ -97,9 +103,12 @@ public class NearbyActivity extends AppCompatActivity {
         String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=" + m;
         Call<MaskStores> res = NetClient.NetClientMask().getMaskStores(query);
 
+        rlLoading.setVisibility(View.VISIBLE);
         res.enqueue(new Callback<MaskStores>() {
             @Override
             public void onResponse(Call<MaskStores> call, Response<MaskStores> response) {
+                rlLoading.setVisibility(View.GONE);
+
                 if(response.body() == null) {
                     clFail.setVisibility(View.VISIBLE);
                     tvPlace.setVisibility(View.GONE);

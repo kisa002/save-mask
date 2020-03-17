@@ -100,6 +100,24 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <RelativeLayout
+        android:id="@+id/rl_nearby_loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#55000000"
+        app:layout_constraintStart_toStartOf="@id/rv_nearby"
+        app:layout_constraintEnd_toEndOf="@id/rv_nearby"
+        app:layout_constraintTop_toTopOf="@id/v_nearby_shadow"
+        app:layout_constraintBottom_toBottomOf="@id/rv_nearby">
+
+        <ProgressBar
+            android:id="@+id/pb_nearby"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:indeterminateTint="#2b3078"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
 <!--    <Button-->
 <!--        android:id="@+id/btn_nearby_more2"-->
 <!--        android:onClick="onClick"-->

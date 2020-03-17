@@ -96,7 +96,7 @@ public class FirebaseManager {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap = (HashMap<String, String>) dataSnapshot.getValue();
 
-                if(!hashMap.get("version").equals("1.0.2")) {
+                if(!hashMap.get("supportVersion").equals("1.0.3") && !hashMap.get("currentVersion").equals("1.0.3")) {
                     createNotice(act, "업데이트 안내", hashMap.get("log")); //새로운 버전이 출시되었습니다. 플레이스토어에서 최신 버전으로 업데이트 바랍니다 :D
 
                     final String appPackageName = act.getPackageName(); // getPackageName() from Context or Activity object
