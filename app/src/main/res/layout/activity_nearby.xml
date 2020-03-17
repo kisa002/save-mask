@@ -49,6 +49,35 @@
             android:layout_marginTop="24.7dp"
             app:layout_constraintStart_toStartOf="@id/tv_nearby_title"
             app:layout_constraintTop_toBottomOf="@id/tv_nearby_title"/>
+
+        <TextView
+            android:id="@+id/tv_nearby_place"
+            android:layout_width="0dp"
+            android:layout_height="26dp"
+            android:text="현재 위치"
+            android:textSize="24sp"
+            android:autoSizeMaxTextSize="24sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/kopubdotum_bold"
+            android:textColor="#2b3078"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="37dp"
+            app:layout_constraintStart_toStartOf="@id/tv_nearby_context"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_nearby_context"/>
+
+        <TextView
+            android:id="@+id/tv_nearby_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- 가장 최근에 입고된 시간 순으로 정렬됩니다."
+            android:textSize="15sp"
+            android:fontFamily="@font/kopubdotum_bold"
+            android:textColor="#8c8c8c"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="@id/tv_nearby_context"
+            app:layout_constraintTop_toBottomOf="@id/tv_nearby_place"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View

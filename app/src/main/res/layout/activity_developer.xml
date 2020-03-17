@@ -130,7 +130,7 @@
         android:lineHeight="20sp"
         android:fontFamily="@font/kopubdotum_medium"
         android:textColor="#000000"
-        android:text="@string/face1_introduce"
+        android:text="@string/face2_introduce"
         android:layout_marginLeft="30dp"
         app:layout_constraintStart_toEndOf="@id/iv_developer_face2"
         app:layout_constraintTop_toTopOf="@id/iv_developer_face2"/>

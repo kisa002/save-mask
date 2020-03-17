@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * @version 1.0.0
  **/
 
-public class MaskStore {
+public class MaskStore implements Comparable<MaskStore> {
     @SerializedName("addr")
     private String addr;
 
@@ -109,5 +109,9 @@ public class MaskStore {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int compareTo(MaskStore maskStore) {
+        return this.stock_at.compareTo(maskStore.stock_at) * -1;
     }
 }

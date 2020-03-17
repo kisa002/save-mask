@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        }
 
         String query = MASK_BASE_URL + "storesByGeo/json?lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&m=3000";
-        Call<MaskStores> res = NetClient.NetClientNaver().getMaskStores(query);
+        Call<MaskStores> res = NetClient.NetClientMask().getMaskStores(query);
 
         res.enqueue(new Callback<MaskStores>() {
             @Override
