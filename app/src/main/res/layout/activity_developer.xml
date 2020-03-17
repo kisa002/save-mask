@@ -77,15 +77,17 @@
 
     <TextView
         android:id="@+id/tv_developer_introduce1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
+        android:autoSizeTextType="uniform"
         android:lineHeight="20sp"
         android:fontFamily="@font/kopubdotum_medium"
         android:textColor="#000000"
         android:text="@string/face1_introduce"
         android:layout_marginLeft="30dp"
         app:layout_constraintStart_toEndOf="@id/iv_developer_face1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv_developer_face1"/>
 
     <TextView
